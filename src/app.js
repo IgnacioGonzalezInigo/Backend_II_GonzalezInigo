@@ -3,8 +3,9 @@ import dotenv from "dotenv";
 import passport from "passport";
 
 import { connectMongoDB } from "./config/db/connect.config.js";
-import sessionsRouter from "./routes/api/sessions.router.js";
 import { initializePassport } from "./config/passport/passport.config.js";
+
+import sessionsRouter from "./routes/api/sessions.router.js";
 import usersRouter from "./routes/api/users.router.js";
 
 dotenv.config();
@@ -25,11 +26,6 @@ app.get("/", (req, res) => {
   res.status(200).json({ status: "success", msg: "API OK" });
 });
 
-const startServer = async () => {
-  await connectMongoDB();
-  app.listen(PORT, () => {
-    console.log(`✅ Servidor escuchando en http://localhost:${PORT}`);
-  });
-};
+await connectMongoDB();
 
-await startServer();
+app.listen(PORT, () => console.log(`✅ Server on http://localhost:${PORT}`));
