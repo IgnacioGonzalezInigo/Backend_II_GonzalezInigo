@@ -1,6 +1,6 @@
 // Data Transfer Object (DTO)
 
-export default getUserDTO = (user) => ({
+export const getUserDTO = (user) => ({
     first_name: user.first_name,
     last_name: user.last_name,
     email: user.email,
