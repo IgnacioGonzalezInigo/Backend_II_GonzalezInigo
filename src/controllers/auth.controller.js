@@ -1,6 +1,8 @@
 // Auth Controller - Maneja autenticación HTTP
 
 import authService from '../services/auth.service.js';
+import { getUserDTO }   from '../dtos/user.dto.js';
+
 
 // Registro
 const register = async (req, res) => {
@@ -82,11 +84,12 @@ const login = async (req, res) => {
 
 // Current - Obtener usuario actual
 const current = (req, res) => {
+    const userEnLimpio = getUserDTO(req.user);
     return res.status(200).json({
         status: "success",
-        user: req.user
-    });
-};
+        user: userEnLimpio,
+    })
+}
 
 export default { 
     register, 
