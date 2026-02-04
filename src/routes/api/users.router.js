@@ -1,68 +1,22 @@
 import { Router } from "express";
-import mongoose from "mongoose";
-import { User } from "../../models/user.model.js";
+import userController from "../../controllers/user.controller.js";
 import { passportCall } from "../../utils/passportCall.js";
 
 const router = Router();
 
-// get todo
-router.get("/", passportCall("jwt"), async (req, res) => {
-  try {
-    const users = await User.find().select("-password").lean();
-    return res.json({ status: "success", payload: users });
-  } catch (error) {
-    return res.status(500).json({ status: "error", msg: error.message });
-  }
-});
+// GET /api/users --> Obtener todos los usuarios
+router.get("/", passportCall("jwt"), userController.getAll);
 
-// get por id
-router.get("/:uid", passportCall("jwt"), async (req, res) => {
-  try {
-    if (!mongoose.Types.ObjectId.isValid(req.params.uid)) {
-      return res.status(400).json({ status: "error", msg: "Invalid user id" });
-    }
+// GET /api/users/:uid --> Obtener usuario por ID
+router.get("/:uid", passportCall("jwt"), userController.getById);
 
-    const user = await User.findById(req.params.uid).select("-password").lean();
-    if (!user) return res.status(404).json({ status: "error", msg: "User not found" });
+// POST /api/users --> Crear usuario (registro manual, sin login)
+router.post("/", userController.create);
 
-    return res.json({ status: "success", payload: user });
-  } catch (error) {
-    return res.status(500).json({ status: "error", msg: error.message });
-  }
-});
+// PUT /api/users/:uid --> Actualizar usuario
+router.put("/:uid", passportCall("jwt"), userController.update);
 
-// update
-router.put("/:uid", passportCall("jwt"), async (req, res) => {
-  try {
-    if (!mongoose.Types.ObjectId.isValid(req.params.uid)) {
-      return res.status(400).json({ status: "error", msg: "Invalid user id" });
-    }
-
-    const updated = await User.findByIdAndUpdate(req.params.uid, req.body, { new: true })
-      .select("-password")
-      .lean();
-
-    if (!updated) return res.status(404).json({ status: "error", msg: "User not found" });
-    return res.json({ status: "success", payload: updated });
-  } catch (error) {
-    return res.status(500).json({ status: "error", msg: error.message });
-  }
-});
-
-// delete
-router.delete("/:uid", passportCall("jwt"), async (req, res) => {
-  try {
-    if (!mongoose.Types.ObjectId.isValid(req.params.uid)) {
-      return res.status(400).json({ status: "error", msg: "Invalid user id" });
-    }
-
-    const deleted = await User.findByIdAndDelete(req.params.uid).lean();
-    if (!deleted) return res.status(404).json({ status: "error", msg: "User not found" });
-
-    return res.json({ status: "success", payload: { id: deleted._id } });
-  } catch (error) {
-    return res.status(500).json({ status: "error", msg: error.message });
-  }
-});
+// DELETE /api/users/:uid --> Eliminar usuario
+router.delete("/:uid", passportCall("jwt"), userController.deleteById);
 
 export default router;
