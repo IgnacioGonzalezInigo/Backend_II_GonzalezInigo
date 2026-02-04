@@ -14,8 +14,8 @@ const register = async (data) => {
     const emailNormalizado = email.trim().toLowerCase();
 
     
-    const existeUser = await userRepository.getByEmail(normalizedEmail);
-    if (existingUser) {
+    const existeUser = await userRepository.getByEmail(emailNormalizado);
+    if (existeUser) {
         throw new Error("YA EXISTE ESTE MAIL EN OTRO USUARIO");
     }
 
@@ -40,9 +40,9 @@ const login = async (email, password) => {
         throw new Error("FALTA COMPLETAR CAMPOS");
     }
 
-    const normalizedEmail = email.trim().toLowerCase();
+    const emailNormalizado = email.trim().toLowerCase();
 
-    const user = await userRepository.getByEmail(normalizedEmail);
+    const user = await userRepository.getByEmail(emailNormalizado);
     if (!user) {
         throw new Error("NO EXISTE USUARIO CON ESE MAIL");
     }
