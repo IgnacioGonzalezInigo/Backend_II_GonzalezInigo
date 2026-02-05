@@ -1,5 +1,6 @@
 import { Router } from "express";
 import authController from "../../controllers/auth.controller.js";
+import passwordController from "../../controllers/password.controller.js";  
 import { passportCall } from "../../utils/passportCall.js";
 
 const router = Router();
@@ -12,5 +13,12 @@ router.post("/login", authController.login);
 
 // GET /api/sessions/current - Usuario actual (requiere autenticación)
 router.get("/current", passportCall("jwt"), authController.current);
+
+// POST /api/sessions/forgot-password - Recuperar contra
+router.post("/forgot-password", passwordController.forgotPassword);
+
+// POST /api/sessions/reset-password - Cambiar contra
+router.post("/reset-password", passwordController.resetPassword);
+
 
 export default router;
