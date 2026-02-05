@@ -1,5 +1,4 @@
-// Auth Controller - Maneja autenticación HTTP
-
+// Auth Controller 
 import authService from '../services/auth.service.js';
 import { getUserDTO }   from '../dtos/user.dto.js';
 
