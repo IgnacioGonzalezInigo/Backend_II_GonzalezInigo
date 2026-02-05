@@ -104,7 +104,7 @@ const purchase = async (cartId, userId) => {
     
     // Generar ticket
     const ticket = await ticketRepository.create({
-        code: generateTicketCode(),
+        code: generarCodigoTicket(),
         purchase_datetime: new Date(),
         amount: totalAmount,
         purchaser: userId,

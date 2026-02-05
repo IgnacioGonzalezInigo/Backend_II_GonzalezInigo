@@ -1,4 +1,4 @@
-import cartService from "../services/cart.service";
+import cartService from "../services/cart.service.js";
 
 
 // Obtener todos los carritos

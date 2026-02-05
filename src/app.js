@@ -8,8 +8,8 @@ import { initializePassport } from "./config/passport/passport.config.js";
 import sessionsRouter from "./routes/api/sessions.router.js";
 import usersRouter from "./routes/api/users.router.js";
 import productsRouter from "./routes/api/products.router.js";  
-import cartsRouter from "./routes/api/carts.router.js";        
-import ticketsRouter from "./routes/api/tickets.router.js";
+import cartsRouter from "./routes/api/cart.router.js";        
+import ticketsRouter from "./routes/api/ticket.router.js";
 
 dotenv.config();
 

@@ -1,4 +1,4 @@
-import tickerService from "../services/ticker.service";
+import tickerService from "../services/ticker.service.js";
 
 // Obtener todos los tickets
 const getAll = async (req, res) => {

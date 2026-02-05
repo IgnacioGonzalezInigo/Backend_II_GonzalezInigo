@@ -1,4 +1,4 @@
-import productService from "../services/product.service";
+import productService from "../services/product.service.js";
 
 // Obtener todos los productos
 const getAll = async (req, res) => {
